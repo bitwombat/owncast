@@ -1,0 +1,20 @@
+@startuml
+
+CloudTask -> CloudRun : /update
+CloudRun -> YouTube : get playlist
+YouTube -> CloudRun
+loop
+CloudRun -> YouTube : get item
+YouTube -> CloudRun
+rnote over CloudRun
+convert to mp3
+endnote
+CloudRun -> CloudStorage : write mp3
+rnote over CloudRun
+endnote
+end
+CloudRun -> CloudStorage : write podcast.rss
+PodcastApp -> CloudStorage
+CloudStorage -> PodcastApp
+
+@endum
